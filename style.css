@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #ccc;
+}
+#game {
+  position: relative;
+  width: 1024px;
+  height: 576px;
+  margin: 0 auto;
+}
+#map {
+  width: 100%;
+  height: auto;
+}
+#character {
+  position: absolute;
+  width: 50px;
+  transform: rotate(0deg); /* Adjust for direction */
+  transition: all 0.3s;
+}
+#pokemon {
+  position: absolute;
+  width: 80px;
+}
