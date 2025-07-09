@@ -1,19 +1,46 @@
+let levels = [
+  {
+    pokemon: ["chansey", "slowpoke", "gengar"],
+    positions: {
+      "430,230": "chansey.png",
+      "630,230": "slowpoke.png",
+      "730,230": "gengar.png"
+    }
+  },
+  {
+    pokemon: ["blastoise", "roserade", "charizard"],
+    positions: {
+      "130,80": "roserade.png",
+      "430,80": "charizard.png",
+      "730,80": "blastoise.png"
+    }
+  }
+];
+
+let currentLevel = 0;
+let found = [];
+
 const character = document.getElementById('character');
-const pokemon = document.getElementById('pokemon');
+const pokemonImg = document.getElementById('pokemon');
+const targetList = document.getElementById('target-list');
+const levelMessage = document.getElementById('level-message');
 
-let pos = { x: 430, y: 420 }; // Starting at supermarket
-let direction = 0; // 0 = up, 90 = right, 180 = down, 270 = left
+let pos = { x: 430, y: 420 };
+let direction = 0;
 
-const buildingMap = {
-  "430,80": "charizard.png",       // Zoo
-  "730,80": "blastoise.png",       // Fire Station
-  "130,230": "roserade.png",       // Flower Shop
-  "430,230": "chansey.png",        // Hospital
-  "730,230": "gengar.png",         // Bus Stop
-  "130,420": "",                   // Empty
-  "430,420": "pikachu.png",        // Supermarket
-  "730,420": "machamp.png",        // Gym
-};
+function loadLevel(index) {
+  found = [];
+  targetList.innerHTML = '';
+  const pokes = levels[index].pokemon;
+  pokes.forEach(name => {
+    const li = document.createElement('li');
+    li.innerText = name;
+    li.id = `poke-${name}`;
+    targetList.appendChild(li);
+  });
+  updateCharacter();
+  pokemonImg.style.display = "none";
+}
 
 function updateCharacter() {
   character.style.left = `${pos.x}px`;
@@ -31,15 +58,35 @@ function getNextPos() {
 }
 
 function checkBuilding() {
-  const frontPos = getNextPos();
-  const key = `${frontPos.x},${frontPos.y}`;
-  if (buildingMap[key]) {
-    pokemon.src = `img/${buildingMap[key]}`;
-    pokemon.style.left = `${frontPos.x}px`;
-    pokemon.style.top = `${frontPos.y}px`;
-    pokemon.style.display = "block";
-  } else {
-    pokemon.style.display = "none";
+  const front = getNextPos();
+  const key = `${front.x},${front.y}`;
+  const pokemonPath = levels[currentLevel].positions[key];
+
+  if (pokemonPath) {
+    const name = pokemonPath.replace(".png", "");
+    if (!found.includes(name)) {
+      found.push(name);
+      document.getElementById(`poke-${name}`).classList.add('found');
+      pokemonImg.src = `img/${pokemonPath}`;
+      pokemonImg.style.left = `${front.x}px`;
+      pokemonImg.style.top = `${front.y}px`;
+      pokemonImg.style.display = "block";
+
+      if (found.length === 3) {
+        setTimeout(() => {
+          levelMessage.style.display = "block";
+          setTimeout(() => {
+            levelMessage.style.display = "none";
+            currentLevel++;
+            if (currentLevel < levels.length) {
+              loadLevel(currentLevel);
+            } else {
+              alert("All levels complete!");
+            }
+          }, 1500);
+        }, 500);
+      }
+    }
   }
 }
 
@@ -51,13 +98,11 @@ document.addEventListener('keydown', e => {
   }
   if (e.code === 'ArrowLeft') {
     direction = (direction + 270) % 360;
-    updateCharacter();
   }
   if (e.code === 'ArrowRight') {
     direction = (direction + 90) % 360;
-    updateCharacter();
   }
   updateCharacter();
 });
 
-updateCharacter();
+loadLevel(currentLevel);
