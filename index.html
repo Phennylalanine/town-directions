@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Pokemon Directions Game</title>
-  <link rel="stylesheet" href="style.css">
-</head>
 <body>
-  <div id="game">
-    <img id="map" src="img/map.png" alt="Map">
-    <img id="character" src="img/pikachu.png" alt="Pikachu">
-    <img id="pokemon" src="" alt="Hidden Pokémon" style="display: none;">
+  <div id="game-wrapper">
+    <div id="sidebar">
+      <h3>Find These Pokémon:</h3>
+      <ul id="target-list">
+        <!-- Dynamically filled -->
+      </ul>
+    </div>
+
+    <div id="game">
+      <img id="map" src="img/map.png" alt="Map">
+      <img id="character" src="img/pikachu.png">
+      <img id="pokemon" src="" style="display: none;">
+    </div>
   </div>
-  <script src="script.js"></script>
+  <div id="level-message" style="display:none;">Level Complete!</div>
 </body>
-</html>
