@@ -1,14 +1,12 @@
 const character = document.getElementById("character");
 const buildings = document.querySelectorAll(".building");
 
-let pos = { x: 300, y: 300 }; // Starting position
-let direction = "up"; // up, right, down, left
+let pos = { x: 300, y: 300 };
+let direction = "up";
 const step = 40;
 
-// Set initial position
 updateCharacter();
 
-// Handle key presses
 document.addEventListener("keydown", (e) => {
   switch (e.code) {
     case "ArrowLeft":
@@ -23,7 +21,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// Direction angle (for rotate)
 const directionMap = {
   up: 0,
   right: 90,
@@ -77,7 +74,6 @@ function checkBuildingCollision() {
                       rect.top > charRect.bottom);
 
     if (overlap) {
-      // Replace this with actual Pokémon logic later
       alert(`You found a Pokémon at ${building.id}!`);
     }
   });
