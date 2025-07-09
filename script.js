@@ -1,82 +1,57 @@
+const map = document.getElementById("map");
 const character = document.getElementById("character");
-const buildings = document.querySelectorAll(".building");
+let gridX = 0;
+let gridY = 0;
 
-let pos = { x: 300, y: 300 };
-let direction = "up";
-const step = 40;
+// Create the 10x10 grid and place buildings
+for (let y = 0; y < 10; y++) {
+  for (let x = 0; x < 10; x++) {
+    const tile = document.createElement("div");
+    tile.classList.add("tile");
+    tile.dataset.x = x;
+    tile.dataset.y = y;
+    map.appendChild(tile);
+  }
+}
 
-// Direction angle (for rotation)
-const directionMap = {
-  up: 0,
-  right: 90,
-  down: 180,
-  left: 270
-};
+// Place some buildings (adjust these)
+document.querySelector('.tile[data-x="2"][data-y="3"]').classList.add("hospital");
+document.querySelector('.tile[data-x="5"][data-y="6"]').classList.add("school");
+document.querySelector('.tile[data-x="7"][data-y="2"]').classList.add("park");
 
-// Call this AFTER directionMap is defined
-updateCharacter();
+function updateCharacterPosition() {
+  character.style.left = `${gridX * 64}px`;
+  character.style.top = `${gridY * 64}px`;
+}
 
 document.addEventListener("keydown", (e) => {
   switch (e.code) {
+    case "ArrowUp":
+      if (gridY > 0) gridY--;
+      break;
+    case "ArrowDown":
+      if (gridY < 9) gridY++;
+      break;
     case "ArrowLeft":
-      rotateLeft();
+      if (gridX > 0) gridX--;
       break;
     case "ArrowRight":
-      rotateRight();
-      break;
-    case "Space":
-      moveForward();
+      if (gridX < 9) gridX++;
       break;
   }
+  updateCharacterPosition();
+  checkForPokemon();
 });
 
-function rotateLeft() {
-  direction = turnLeft(direction);
-  updateCharacter();
-}
-
-function rotateRight() {
-  direction = turnRight(direction);
-  updateCharacter();
-}
-
-function moveForward() {
-  switch (direction) {
-    case "up": pos.y -= step; break;
-    case "down": pos.y += step; break;
-    case "left": pos.x -= step; break;
-    case "right": pos.x += step; break;
+function checkForPokemon() {
+  const tile = document.querySelector(`.tile[data-x="${gridX}"][data-y="${gridY}"]`);
+  if (tile.classList.contains("hospital")) {
+    alert("You found a Pokémon at the hospital!");
+  } else if (tile.classList.contains("school")) {
+    alert("You found a Pokémon at the school!");
+  } else if (tile.classList.contains("park")) {
+    alert("You found a Pokémon at the park!");
   }
-  updateCharacter();
-  checkBuildingCollision();
 }
 
-function updateCharacter() {
-  character.style.left = `${pos.x}px`;
-  character.style.top = `${pos.y}px`;
-  character.style.transform = `rotate(${directionMap[direction]}deg)`;
-}
-
-function turnLeft(dir) {
-  return { up: "left", left: "down", down: "right", right: "up" }[dir];
-}
-
-function turnRight(dir) {
-  return { up: "right", right: "down", down: "left", left: "up" }[dir];
-}
-
-function checkBuildingCollision() {
-  buildings.forEach(building => {
-    const rect = building.getBoundingClientRect();
-    const charRect = character.getBoundingClientRect();
-
-    const overlap = !(rect.right < charRect.left ||
-                      rect.left > charRect.right ||
-                      rect.bottom < charRect.top ||
-                      rect.top > charRect.bottom);
-
-    if (overlap) {
-      alert(`You found a Pokémon at ${building.id}!`);
-    }
-  });
-}
+updateCharacterPosition();
