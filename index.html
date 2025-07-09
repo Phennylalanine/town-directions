@@ -1,17 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Town Directions Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  <div id="game-wrapper">
-    <div id="sidebar">
-      <h3>Find These Pokémon:</h3>
-      <ul id="target-list">
-        <!-- Dynamically filled -->
-      </ul>
-    </div>
+  <div id="game">
+    <img id="character" src="img/pikachu.png" alt="Pikachu">
 
-    <div id="game">
-      <img id="map" src="img/map.png" alt="Map">
-      <img id="character" src="img/pikachu.png">
-      <img id="pokemon" src="" style="display: none;">
-    </div>
+    <!-- Buildings -->
+    <img class="building" id="hospital" src="img/hospital.png" alt="Hospital">
+    <img class="building" id="park" src="img/park.png" alt="Park">
+    <img class="building" id="school" src="img/school.png" alt="School">
+    <img class="building" id="station" src="img/station.png" alt="Station">
+    <img class="building" id="supermarket" src="img/supermarket.png" alt="Supermarket">
+    <img class="building" id="zoo" src="img/zoo.png" alt="Zoo">
+    <img class="building" id="bus" src="img/bus.png" alt="Bus Stop">
+    <img class="building" id="fire_station" src="img/fire_station.png" alt="Fire Station">
+    <img class="building" id="flower" src="img/flower.png" alt="Flower Shop">
+    <img class="building" id="gym" src="img/gym.png" alt="Gym">
   </div>
-  <div id="level-message" style="display:none;">Level Complete!</div>
+
+  <script src="script.js"></script>
 </body>
+</html>
