@@ -1,41 +1,84 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
+const character = document.getElementById("character");
+const buildings = document.querySelectorAll(".building");
+
+let pos = { x: 300, y: 300 }; // Starting position
+let direction = "up"; // up, right, down, left
+const step = 40;
+
+// Set initial position
+updateCharacter();
+
+// Handle key presses
+document.addEventListener("keydown", (e) => {
+  switch (e.code) {
+    case "ArrowLeft":
+      rotateLeft();
+      break;
+    case "ArrowRight":
+      rotateRight();
+      break;
+    case "Space":
+      moveForward();
+      break;
+  }
+});
+
+// Direction angle (for rotate)
+const directionMap = {
+  up: 0,
+  right: 90,
+  down: 180,
+  left: 270
+};
+
+function rotateLeft() {
+  direction = turnLeft(direction);
+  updateCharacter();
 }
 
-#game {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background: url("img/map.png") no-repeat center center;
-  background-size: cover;
+function rotateRight() {
+  direction = turnRight(direction);
+  updateCharacter();
 }
 
-.building {
-  position: absolute;
-  width: 80px;
-  height: 80px;
+function moveForward() {
+  switch (direction) {
+    case "up": pos.y -= step; break;
+    case "down": pos.y += step; break;
+    case "left": pos.x -= step; break;
+    case "right": pos.x += step; break;
+  }
+  updateCharacter();
+  checkBuildingCollision();
 }
 
-/* Pikachu */
-#character {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  z-index: 10;
+function updateCharacter() {
+  character.style.left = `${pos.x}px`;
+  character.style.top = `${pos.y}px`;
+  character.style.transform = `rotate(${directionMap[direction]}deg)`;
 }
 
-/* === Building positions (adjust as needed) === */
-#hospital { top: 100px; left: 200px; }
-#park { top: 100px; left: 400px; }
-#school { top: 250px; left: 150px; }
-#station { top: 250px; left: 350px; }
-#supermarket { top: 400px; left: 100px; }
-#zoo { top: 400px; left: 300px; }
-#bus { top: 550px; left: 150px; }
-#fire_station { top: 550px; left: 350px; }
-#flower { top: 700px; left: 200px; }
-#gym { top: 700px; left: 400px; }
+function turnLeft(dir) {
+  return { up: "left", left: "down", down: "right", right: "up" }[dir];
+}
+
+function turnRight(dir) {
+  return { up: "right", right: "down", down: "left", left: "up" }[dir];
+}
+
+function checkBuildingCollision() {
+  buildings.forEach(building => {
+    const rect = building.getBoundingClientRect();
+    const charRect = character.getBoundingClientRect();
+
+    const overlap = !(rect.right < charRect.left ||
+                      rect.left > charRect.right ||
+                      rect.bottom < charRect.top ||
+                      rect.top > charRect.bottom);
+
+    if (overlap) {
+      // Replace this with actual Pokémon logic later
+      alert(`You found a Pokémon at ${building.id}!`);
+    }
+  });
+}
