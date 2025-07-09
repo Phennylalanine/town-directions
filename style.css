@@ -11,22 +11,19 @@ body {
   height: 100vh;
 }
 #game {
-  width: 640px;
-  height: 640px;
-  position: relative;
-  border: 2px solid #444;
+  width: 960px;
+  height: 960px;
 }
+
 #map {
-  display: grid;
-  grid-template-columns: repeat(10, 64px);
-  grid-template-rows: repeat(10, 64px);
-  width: 640px;
-  height: 640px;
-  position: relative;
+  width: 960px;
+  height: 960px;
+  grid-template-columns: repeat(10, 96px);
+  grid-template-rows: repeat(10, 96px);
 }
 .tile {
-  width: 64px;
-  height: 64px;
+  width: 96px;
+  height: 96px;
   border: 1px solid #ccc;
   position: relative;
 }
@@ -58,11 +55,6 @@ body {
   position: absolute;
 }
 #character {
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  transition: top 0.2s, left 0.2s;
+  width: 72px; /* bigger to match bigger tiles */
+  height: 72px;
 }
