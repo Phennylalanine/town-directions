@@ -5,6 +5,15 @@ let pos = { x: 300, y: 300 };
 let direction = "up";
 const step = 40;
 
+// Direction angle (for rotation)
+const directionMap = {
+  up: 0,
+  right: 90,
+  down: 180,
+  left: 270
+};
+
+// Call this AFTER directionMap is defined
 updateCharacter();
 
 document.addEventListener("keydown", (e) => {
@@ -20,13 +29,6 @@ document.addEventListener("keydown", (e) => {
       break;
   }
 });
-
-const directionMap = {
-  up: 0,
-  right: 90,
-  down: 180,
-  left: 270
-};
 
 function rotateLeft() {
   direction = turnLeft(direction);
