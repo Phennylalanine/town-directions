@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector('.tile[data-x="7"][data-y="2"]').classList.add("park");
 
   function updateCharacterPosition() {
-    character.style.left = `${gridX * 64}px`;
-    character.style.top = `${gridY * 64}px`;
-  }
+  character.style.left = `${gridX * 96}px`;
+  character.style.top = `${gridY * 96}px`;
+}
 
   document.addEventListener("keydown", (e) => {
     switch (e.code) {
