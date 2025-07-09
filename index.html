@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Town Directions Game</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="game">
-    <img id="character" src="img/pikachu.png" alt="Pikachu">
-
-    <!-- Buildings -->
-    <img class="building" id="hospital" src="img/hospital.png" alt="Hospital">
-    <img class="building" id="park" src="img/park.png" alt="Park">
-    <img class="building" id="school" src="img/school.png" alt="School">
-    <img class="building" id="station" src="img/station.png" alt="Station">
-    <img class="building" id="supermarket" src="img/supermarket.png" alt="Supermarket">
-    <img class="building" id="zoo" src="img/zoo.png" alt="Zoo">
-    <img class="building" id="bus" src="img/bus.png" alt="Bus Stop">
-    <img class="building" id="fire_station" src="img/fire_station.png" alt="Fire Station">
-    <img class="building" id="flower" src="img/flower.png" alt="Flower Shop">
-    <img class="building" id="gym" src="img/gym.png" alt="Gym">
+    <div id="map">
+      <!-- Grid tiles (10x10 = 100) -->
+      <!-- Generated dynamically in script.js -->
+    </div>
+    <img id="character" src="img/pikachu.png" alt="Pikachu" />
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
